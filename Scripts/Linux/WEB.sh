@@ -7,3 +7,5 @@ fi
 
 echo "Apache2 webszerver telepítése"
 apt-get update && apt-get install apache2 -y
+
+systemctl status apache2 --no-pager
