@@ -2,6 +2,7 @@
 Hókuszpók Toolkit
 
 Linux használat:
+
 Ennek a parancsnak a kimenetéből megállapítod melyik számodra a megfelelő meghajtót:
 # lsblk
 
