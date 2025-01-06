@@ -5,6 +5,8 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+apt-get update && apt-get install isc-dhcp-server -y
+
 read -p "Add meg a DHCP tartomány kezdő IP-címet (pl 192.168.1.100): " RANGE_START
 read -p "Add meg a Záró IP-címet: " RANGE_END
 
@@ -16,7 +18,6 @@ read -p "Add meg az alapértelmezett átjárót: " GATEWAY
 
 read -p "Add meg a DNS szerver IP-t (opcionális): " DNS_SERVER
 
-apt-get update && apt-get install isc-dhcp-server -y
 
 DHCP_CONF="/etc/dhcp/dhcpd.conf"
 
