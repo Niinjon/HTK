@@ -1,0 +1,12 @@
+pre-1.0.0	alap main.py - szerver konfiguráló
+pre-1.0.1-7	javítások
+pre-1.1.0	újabb szerkezet
+pre-1.1.1	javítások, kijelző, vlsm?
+pre-1.1.2	javítások
+pre-1.1.3	javítások
+pre-1.1.4	javítások
+pre-1.2.0	több részre osztva - main.py, server.py, vlsm.py
+pre-1.2.1	javítások
+pre-1.2.2	javítások, címeknél kisebb hibatűrés - hibaüzenet
+pre-1.2.3	javítások, interface név, inside-outside interface
+pre-1.2.4	javítások, install step-to-step üzenet

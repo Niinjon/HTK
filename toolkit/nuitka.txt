@@ -1,0 +1,4 @@
+--include-data-dir=DIR
+--include-data-files=FILE
+--onefile
+--enable-plugin=tk-inter

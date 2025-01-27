@@ -1,0 +1,11 @@
+1) Kilistázod az elérhető meghajtókat:
+lsblk
+
+2) Megkeresed az ISO fájlt, és csatolod a rendszerhez a mount (/mnt) mappába:
+mount /dev/{meghajtó neve} /mnt
+
+3) Belépsz a csatolt meghajtó könyvtárába következő képpen:
+cd /mnt
+
+4) Futtatod a shell fájlt ezen a módon:
+./{fájl neve}.sh

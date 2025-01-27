@@ -1,0 +1,17 @@
+tkinter.ttk-val korlátozottabb, de lehet egyszerűbb a formázás; mindenesetre rövidebb lenne a program
+
+windows szerver
+eltérő verziók - eltérő dolgok
+
+0 és 255 lehet a cím vége
+számolni kell a maszkkal
+
+ha a program egyetlen exe fájlba van tömörítve, mókolni kell a fájlok elérésével
+import os, sys
+if getattr(sys, 'frozen', False):
+    # If the application is running as a packaged executable
+    app_path = sys._MEIPASS
+else:
+    # If running from source
+    app_path = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(app_path, 'assets', 'your_file.txt')
