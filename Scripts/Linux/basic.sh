@@ -6,7 +6,9 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 echo "interfaces fájl módosítása"
-cat <<EOL > /etc/network/interfaces
+INTERFACES_FILE="/etc/network/interfaces"
+if [[ ! -f "$INTERFACES_FILE" || ! $(grep -q "iface eth0 inet static" "$INTERFACES_FILE") ]]; then
+    cat <<EOL > /etc/network/interfaces
 auto lo
 iface lo inet loopback
 
@@ -15,19 +17,37 @@ iface eth0 inet static
     address $IP_ADDRESS
     netmask $NETMASK
     gateway $GATEWAY
+    dns-nameservers $DNS_SERVER
 EOL
-
-echo "interfaces fájl sikeresen frissíve"
-
-if [[ ! -f /etc/resolv.conf ]]; then
-    echo "A fájl nem létezik"
-    touch /etc/resolv.conf
+echo "Fájl sikeresen módosítva"
+else
+    echo "A fájl már létezik és nem üres"
 fi
 
-echo "nameserver $DNS_SERVER" > /etc/resolv.conf
+RESOLV_FILE="/etc/resolv.conf"
+if [[ ! -f $RESOLV_FILE ]]; then
+    touch "$RESOLV_FILE"
+fi
 
-sed -i '1d' /etc/apt/sources.list
-sed -i '1i deb http://ftp.debian.org/debian stable main contrib non-free\n\ndeb-src http://ftp.debian.org/debian stable main contrib non-free' /etc/apt/sources.list
+if ! grep -qE "nameserver $DNS_SERVER | nameserver 8.8.8.8" "$RESOLV_FILE"; then
+    echo "nameserver $DNS_SERVER" >> "$RESOLV_FILE"
+    echo "Resolv.conf sikeresen konfigurálva"
+else
+    echo "Resolv.conf már létezik és tartalmazza a beállításokat"
+fi
+
+SOURCES_LIST="/etc/apt/sources.list"
+if [[ ! -f "$SOURCES_LIST" ]]; then
+    echo -e "deb http://ftp.debian.org/debian stable main contrib non-free\n\ndeb-src http://ftp.debian.org/debian stable main contrib non-free" > "$SOURCES_LIST"
+fi
+
+FILES=("$INTERFACES_FILE","$RESOLV_FILE","$SOURCES_LIST")
+
+for file in "${FILES[@]}"; do
+    if [[ ! -f "$file" ]]; then
+        echo "!!!!!!!!!Figyelmezetetés!!!!!!!!!: A(z) $file nem létezik!"
+    fi
+done
 
 echo "Sikeres konfiguráció"
 echo "IP-cím: $IP_ADDRESS"
